@@ -6,13 +6,13 @@
 */
 class CookiePop{
 
-   constructor(){
-      this.btnDel = document.querySelector(".del");
-      this.btnView = document.querySelector(".view");
-      this.popup = document.querySelector("#popup");
+   constructor(opt){
+      this.cookieName = opt.name;
+      this.popup = document.querySelector(opt.popup);
       this.btnClose = this.popup.querySelector(".close");
-   
-      this.isCookie = document.cookie.indexOf("today=done");
+      this.btnDel = document.querySelector(opt.btnDel);
+      this.btnView = document.querySelector(opt.btnView);
+      this.isCookie = document.cookie.indexOf(this.cookieName);
       this.isOn;
    
    
@@ -28,20 +28,20 @@ class CookiePop{
       this.isOn = "none";
       }
       this.popup.style.display = this.isOn;
+      
    
    
-   
-      //쿠키확인 이벤트
+      //쿠키 확인 버튼 이벤트
       this.btnView.addEventListener("click", e=>{
       e.preventDefault();
       console.log(document.cookie);
    
       });
    
-      //쿠키 확인 버튼 이벤트
+      //쿠키 삭제 버튼 이벤트
       this.btnDel.addEventListener("click", e=>{
       e.preventDefault();
-      this.setCookie("today", "done", 0);
+      this.setCookie(this.cookieName, 0);
       });
    
       //팝업 닫기 버튼 이벤트
@@ -49,17 +49,17 @@ class CookiePop{
          this.popup.style.display = "none";
    
          let isChecked = this.popup.querySelector("input[type=checkbox]").checked;
-         if(isChecked) this.setCookie("today", "done", 1);
+         if(isChecked) this.setCookie(this.cookieName, 1);
       });
    }
 
 
-setCookie(name, val, due){
+setCookie(name, due){
       const today = new Date();
       const date = today.getDate();
       today.setDate(date + due);
       const duedate = today.toGMTString();
-      document.cookie = `${name}=${val}; path=/; expires = ${duedate}`;
+      document.cookie = `${name}; path=/; expires = ${duedate}`;
    }
 }
 
