@@ -4,7 +4,7 @@
    document.cookie = `${name}=${val}; path=/; expires = ${due}`;
    }
 */
-class cookiePop{
+class CookiePop{
 
    constructor(){
       this.btnDel = document.querySelector(".del");
